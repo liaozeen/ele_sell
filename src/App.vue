@@ -22,6 +22,14 @@
   };
 </script>
 
-<style>
-
+<style lang="stylus" type="stylesheet/stylus">
+  #app
+    .tab
+      display:flex
+      width:100%
+      height:40px
+      .tab-item
+        flex:1
+        text-align:center
+        line-height:40px
 </style>
