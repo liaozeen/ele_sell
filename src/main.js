@@ -7,6 +7,9 @@ import goods from './components/goods/goods.vue';
 import ratings from './components/ratings/ratings.vue';
 import seller from './components/seller/seller.vue';
 
+/* 引用样式 */
+import './common/stylus/index.styl';
+
 /* 安装vue-router */
 Vue.use(VueRouter);
 
