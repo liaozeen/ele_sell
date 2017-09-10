@@ -15,7 +15,8 @@ let router = new VueRouter({
     { path: '/goods', component: goods },
     { path: '/ratings', component: ratings },
     { path: '/seller', component: seller }
-  ]
+  ],
+  linkActiveClass: 'active'
 });
 
 new Vue({
@@ -23,5 +24,3 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app');
-
-router.go('/goods');
