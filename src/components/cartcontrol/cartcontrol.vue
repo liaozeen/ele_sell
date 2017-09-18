@@ -20,7 +20,7 @@
       }
     },
     methods: {
-      addCart () {
+      addCart (event) {
         if (!event._constructed) {
           return;
         }
@@ -29,8 +29,9 @@
         } else {
           this.food.count++;
         }
+        this.$emit('add', event.target);
       },
-      decreaseCart () {
+      decreaseCart (event) {
         if (!event._constructed) {
           return;
         }

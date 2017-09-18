@@ -12,7 +12,7 @@
     </div>
     <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
-        <li v-for="item in goods" class="food-list food-list-hook">
+        <li v-for="item in goods" class="food-list" ref="foodList">
           <h1 class="title">{{item.name}}</h1>
           <ul>
             <li v-for="food in item.foods" class="food-item border-1px">
@@ -29,7 +29,7 @@
                   <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                 <cartcontrol :food="food"></cartcontrol>
+                 <cartcontrol  @add="addFood" :food="food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -37,7 +37,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -102,9 +102,18 @@
         if (!event._constructed) {
           return;
         }
-        let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
+        let foodList = this.$refs.foodList;
         let el = foodList[index];
         this.foodsScroll.scrollToElement(el, 300);
+      },
+      addFood (target) {
+        this._drop(target);
+      },
+      _drop (target) {
+        // 体验优化,异步执行下落动画
+        this.$nextTick(() => {
+          this.$refs.shopcart.drop(target);
+        });
       },
       _initScroll () {
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {
