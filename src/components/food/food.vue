@@ -33,6 +33,21 @@
       <div class="rating">
         <h1 class="title">商品评价</h1>
         <ratingselect :selectType="selectType" :only-content="onlyContent" :desc="desc" :ratings="food.ratings"></ratingselect>
+        <div class="rating-wraper">
+          <ul v-show="food.ratings && food.ratings.length">
+            <li v-for="rating in food.ratings" class="rating-item">
+              <div class="user">
+                <span class="name">{{rating.username}}</span>
+                <img class="avatar" width="12" height="12" :src="rating.avater">
+              </div>
+              <div class="time">{{rating.rateTime}}</div>
+              <p class="text">
+                <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1 }"></span>{{rating.text}}
+              </p>
+            </li>
+          </ul>
+          <div class="no-rating" v-show="!food.ratings || food.ratings">暂无评价</div>
+        </div>
       </div>
     </div>
   </div>
