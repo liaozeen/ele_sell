@@ -24,12 +24,19 @@
           </div>
         </div>
       </div>
+      <split></split>
+      <ratingselect :select-type="selectType" :only-content="onlyContent" :desc="desc" :ratings="ratings" ></ratingselect>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import star from '../star/star';
+  import split from '../../components/split/split';
+  import ratingselect from '../../components/ratingselect/ratingselect';
+
+  const ALL = 2;
+  const ERR_OK = 0;
 
   export default {
     props: {
@@ -37,8 +44,25 @@
         type: Object
       }
     },
+    data () {
+      return {
+        ratings: [],
+        selectType: ALL,
+        onlyContent: true
+      };
+    },
+    created () {
+      this.$http.get('/api/ratings').then((response) => {
+        response = response.body;
+        if (response.erron === ERR_OK) {
+          this.ratings = response.data;
+        }
+      });
+    },
     components: {
-      star
+      star,
+      split,
+      ratingselect
     }
   };
 </script>
