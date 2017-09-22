@@ -60,6 +60,9 @@
         width:137px
         border-right:1px solid rgb(7,17,27,0.1)
         text-align:center
+        @media only screen and (max-width: 320px)
+          flex:0 0 120px
+          width:120px
         .score
           margin-bottom:6px
           font-size:24px
@@ -77,6 +80,8 @@
       .overview-right
         flex:1
         padding:6px 0 6px 24px
+        @media only screen and (max-width: 320px)
+          padding-left:6px
         .score-wraper
           margin-bottom:8px
           font-size:0
@@ -99,7 +104,6 @@
         .delivery-wrapper
           font-size:0
           .title
-            display:inline-block
             line-height:18px
             font-size:12px
             color:rgb(7,17,27)
