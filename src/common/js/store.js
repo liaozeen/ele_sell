@@ -11,7 +11,6 @@ export function saveToLocal (id, key, value) {
   }
   seller[id][key] = value;
   window.localStorage._seller_ = JSON.stringify(seller);
-  console.log(window.localStorage._seller_);
 }
 
 export function loadFromLocal (id, key, def) {
