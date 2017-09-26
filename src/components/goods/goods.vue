@@ -93,7 +93,7 @@
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
       this.$http.get('/api/goods').then((response) => {
         response = response.body;
-        if (response.erron === ERR_OK) {
+        if (response.errno === ERR_OK) {
           this.goods = response.data;
             this.$nextTick(() => {
               this._initScroll();

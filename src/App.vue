@@ -38,8 +38,7 @@
     created () {
       this.$http.get('/api/seller?id=' + this.seller.id).then((response) => {
         response = response.body;
-        if (response.erron === ERR_OK) {
-          // this.seller = response.data;
+        if (response.errno === ERR_OK) {
           this.seller = Object.assign({}, this.seller, response.data);
         }
       });

@@ -78,7 +78,7 @@
     created () {
       this.$http.get('/api/ratings').then((response) => {
         response = response.body;
-        if (response.erron === ERR_OK) {
+        if (response.errno === ERR_OK) {
           this.ratings = response.data;
           this.$nextTick(() => {
             this.scroll = new BScroll(this.$refs.ratings, {
