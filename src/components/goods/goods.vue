@@ -13,7 +13,7 @@
     </div>
     <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
-        <li v-for="item in goods" class="food-list" ref="foodList">
+        <li v-for="item in goods" class="food-list food-list-hook" ref="foodList">
           <h1 class="title">{{item.name}}</h1>
           <ul>
             <li @click="selectFood(food,$event)"  v-for="food in item.foods" class="food-item border-1px">
@@ -72,6 +72,9 @@
         for (let i = 0; i < this.listHeight.length; i++) {
           let height1 = this.listHeight[i];
           let height2 = this.listHeight[i + 1];
+          console.log('height1:' + height1);
+         // console.log('height2:' + height2);
+         // console.log('scrollY:' + this.scrollY);
           if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
             return i;
           }
