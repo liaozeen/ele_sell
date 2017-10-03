@@ -49,6 +49,7 @@
   import shopcart from '../../components/shopcart/shopcart';
   import cartcontrol from '../../components/cartcontrol/cartcontrol';
   import food from '../../components/food/food';
+  import { isGithub } from '../../common/js/util';
 
   const ERR_OK = 0;
 
@@ -91,16 +92,29 @@
     },
     created () {
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
-      this.$http.get('/api/goods').then((response) => {
-        response = response.body;
-        if (response.errno === ERR_OK) {
-          this.goods = response.data;
-            this.$nextTick(() => {
-              this._initScroll();
-              this._calculateHeight();
+
+      if (isGithub()) {
+            let prodPath = 'https://liaozeen.github.io/ele_sell' + '/api/data.json';
+            this.$http.get(prodPath).then(response => {
+                response = response.body;
+                this.goods = response.goods;
+                this.$nextTick(() => {
+                    this._initScroll();
+                    this._calculateHeight();
+                });
             });
+        } else {
+          this.$http.get('/api/goods').then((response) => {
+            response = response.body;
+            if (response.errno === ERR_OK) {
+              this.goods = response.data;
+                this.$nextTick(() => {
+                  this._initScroll();
+                  this._calculateHeight();
+                });
+            }
+          });
         }
-      });
     },
     methods: {
       selectMenu (index, event) {

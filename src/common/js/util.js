@@ -19,3 +19,7 @@ export function urlParse () {
   }
   return obj;
 }
+
+export function isGithub () {
+  return location.host === 'liaozeen.github.io';
+}
