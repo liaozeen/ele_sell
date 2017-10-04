@@ -20,17 +20,22 @@
       }
     },
     methods: {
+      // 添加商品的数量
       addCart (event) {
         if (!event._constructed) {
           return;
         }
         if (!this.food.count) {
+          // 为添加的good.food添加一个count属性，初始值为1
           Vue.set(this.food, 'count', 1);
         } else {
+          // 若this.food已有count属性，其值在原基础上加1
           this.food.count++;
         }
+        // 触发shopcart组件的drop事件
         this.$emit('add', event.target);
       },
+      // 减少商品数量
       decreaseCart (event) {
         if (!event._constructed) {
           return;

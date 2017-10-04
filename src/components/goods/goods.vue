@@ -68,23 +68,23 @@
       };
     },
     computed: {
+      // 判断滚条当前所在的区块，并返回对应区块的索引
       currentIndex () {
         for (let i = 0; i < this.listHeight.length; i++) {
           let height1 = this.listHeight[i];
           let height2 = this.listHeight[i + 1];
-          console.log('height1:' + height1);
-         // console.log('height2:' + height2);
-         // console.log('scrollY:' + this.scrollY);
           if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
             return i;
           }
         }
         return 0;
       },
+      // 遍历所有商品，筛选出已被选择的商品以及商品的数量
       selectFoods () {
         let foods = [];
         this.goods.forEach((good) => {
           good.foods.forEach((food) => {
+            // 若food.count>0,说明此商品已被选择，则添加到foods中
             if (food.count) {
               foods.push(food);
             }
@@ -94,13 +94,16 @@
       }
     },
     created () {
+      // classMap用于根据不同参数给元素的class添加不同属性
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
 
+      // 判断当前项目运行的环境是GitHub还是本地dev，然后访问特定的api地址获取数据
       if (isGithub()) {
             let prodPath = 'https://liaozeen.github.io/ele_sell' + '/api/data.json';
             this.$http.get(prodPath).then(response => {
                 response = response.body;
                 this.goods = response.goods;
+                // $nextTick()api可以让命令延迟到DOM变化后再执行
                 this.$nextTick(() => {
                     this._initScroll();
                     this._calculateHeight();
@@ -120,12 +123,15 @@
         }
     },
     methods: {
+      // 点击左侧菜单列表，右侧列表滚动到指定区块
       selectMenu (index, event) {
+        // 去掉自带的click事件点击，即pc端直接返回
         if (!event._constructed) {
           return;
         }
         let foodList = this.$refs.foodList;
         let el = foodList[index];
+        // better-srcoll的api，类似jump to的功能,通过这个方法,跳转到指定的dom
         this.foodsScroll.scrollToElement(el, 300);
       },
       selectFood (food, event) {
@@ -133,37 +139,45 @@
           return;
         }
         this.selectedFood = food;
+        // 调用当前商品的show()方法，显示当前商品的详情页
         this.$refs.food.show();
       },
+      // 当购物添加按钮被点击时，调用_drop()方法
       addFood (target) {
         this._drop(target);
       },
       _drop (target) {
         // 体验优化,异步执行下落动画
         this.$nextTick(() => {
+          // 调用shopcart的drop方法
           this.$refs.shopcart.drop(target);
         });
       },
+      // 初始化滚动条
       _initScroll () {
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {
-          click: true
+          click: true // 结合BScroll的接口使用,是否将click事件传递,默认被拦截了
         });
 
         this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
           click: true,
-          probeType: 3
+          probeType: 3  // 结合BScroll的接口使用,3实时派发scroll事件，探针的作用
         });
+        // 监听scroll事件(实时派发的),并获取鼠标坐标，当滚动时能实时暴露出scroll
         this.foodsScroll.on('scroll', (pos) => {
+            // 处理pos的y坐标的值，使得成为正整数
             this.scrollY = Math.abs(Math.round(pos.y));
         });
       },
+      // 计算每个food区块的高度
       _calculateHeight () {
+        // 获取每个food列表的DOM对象
         let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
-        let height = 0;
+        let height = 0; // 初始化第一个高度为0
         this.listHeight.push(height);
         for (let i = 0; i < foodList.length; i++) {
-          let item = foodList[i];
-          height += item.clientHeight;
+          let item = foodList[i]; // 每一个item都是刚才获取的food的每一个dom
+          height += item.clientHeight; // 主要是为了获取每一个foods内部块的高度
           this.listHeight.push(height);
         }
       }

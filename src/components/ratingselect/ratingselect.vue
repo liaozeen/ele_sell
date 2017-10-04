@@ -45,11 +45,13 @@
       }
     },
     computed: {
+      // 自动获取并筛选出评价类型为positive的评价（数组）
       positives () {
         return this.ratings.filter((rating) => {
           return rating.rateType === POSITIVE;
         });
       },
+      // 自动获取并筛选出评价类型为negative的评价（数组）
       negatives () {
         return this.ratings.filter((rating) => {
           return rating.rateType === NEGATIVE;
@@ -57,18 +59,20 @@
       }
     },
     methods: {
+      // 评价类型按钮方法，用于筛选评价内容
       select (type, event) {
         if (!event._constructed) {
           return;
         }
-        //  this.selectType = type;
+        //  触发ratings组件的ratingtypeSelect()方法，并传入选项类型type
         this.$emit('ratingtypeSelect', type);
       },
+      // 切换全部内容/有效内容的评价
       toggleContent (event) {
         if (!event._constructed) {
           return;
         }
-       // this.onlyContent = !this.onlyContent;
+       // 触发ratings的contentToggle方法，切换全部内容/有效内容的评价
         this.$emit('contentToggle', this.onlyContent);
       }
     }

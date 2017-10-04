@@ -100,20 +100,26 @@
       };
     },
     computed: {
+      // 自动计算所有已选商品的总价
       totalPrice () {
         let total = 0;
+        // 遍历所有商品，获取价格price和数量count属性
         this.selectFoods.forEach((food) => {
           total += food.price * food.count;
         });
         return total;
       },
+      // 自动计算所有已选商品的总数量
       totalCount () {
         let count = 0;
+        // 遍历所有商品，获取数量count属性
         this.selectFoods.forEach((food) => {
           count += food.count;
         });
         return count;
       },
+      // 比较最小下单价和实际总价的大小
+      // 根据不同比较结果渲染不同文本内容
       payDesc () {
         if (this.totalPrice === 0) {
           return `￥${this.minPrice}元起送`;
@@ -124,6 +130,7 @@
           return '去结算';
         }
       },
+      // 若实际总价 => 最小价格，支付区块的背景颜色变为绿色
       payClass () {
         if (this.totalPrice < this.minPrice) {
           return 'not-enough';
@@ -131,7 +138,9 @@
           return 'enough';
         }
       },
+      // 显示购物车列表
       listShow () {
+        // 若没有选择商品，则不显示
         if (!this.totalCount) {
           this.fold = true;
           return false;
@@ -156,13 +165,16 @@
         for (let i = 0; i < this.balls.length; i++) {
           let ball = this.balls[i];
           if (!ball.show) {
+            // 显示每个小球
             ball.show = true;
             ball.el = el;
+            // 存储准备下落的小球
             this.dropBalls.push(ball);
             return;
           }
         }
       },
+      // 触发小球落下事件drop
       addFood (target) {
         this.drop(target);
       },
@@ -172,11 +184,15 @@
           let ball = this.balls[count];
           if (ball.show) {
             let rect = ball.el.getBoundingClientRect();
+            // 小球的初始位置
             let x = rect.left - 32;
             let y = -(window.innerHeight - rect.top - 22);
+            // 此时还未显示
             el.style.display = '';
+            // 外层控制y轴变化
             el.style.webkitTransform = `translate3d(0,${y}px,0)`;
             el.style.transform = `translate3d(0,${y}px,0)`;
+            // 内层控制x轴变化
             let inner = el.getElementsByClassName('inner-hook')[0];
             inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
             inner.style.transform = `translate3d(${x}px,0,0)`;
@@ -202,21 +218,26 @@
           el.style.display = 'none';
         }
       },
+      // 购物车列表显示/隐藏切换
       toggleList () {
         if (!this.totalCount) {
           return;
         }
         this.fold = !this.fold;
       },
+      // 隐藏购物车列表
       hideList () {
         this.fold = true;
       },
+      // 清空购物车
       empty () {
         this.selectFoods.forEach((food) => {
           food.count = 0;
         });
        },
+       // 支付
       pay () {
+        // 若实际总价小于最小价格，则不能支付
         if (this.totalPrice < this.minPrice) {
           return;
         }
@@ -330,7 +351,7 @@
           width:16px
           height:16px
           border-radius:50%
-          background:rgb(0,160,220)
+          background: rgb(240,20,20)
           transition:all 0.4s linear
     .shopcart-list
       position:absolute

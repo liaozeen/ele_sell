@@ -85,9 +85,9 @@
       };
     },
     methods: {
+      // 显示商品详情页
       show () {
         this.showFlag = true;
-        // 初始化
         this.selectType = ALL;
         this.onlyContent = true;
         this.$nextTick(() => {
@@ -100,16 +100,19 @@
           }
          });
         },
+      // 隐藏商品详情页
       back () {
         this.showFlag = false;
       },
+      // 【加入购物车】按钮
       addFirst (event) {
         if (!event._constructed) {
           return;
         }
-        this.$emit('add', event.target);
+        // this.$emit('add', event.target);
         Vue.set(this.food, 'count', 1);
       },
+       // 显示符合特定条件的评价
       needShow (type, text) {
         if (this.onlyContent && !text) {
           return false;
@@ -120,12 +123,14 @@
           return type === this.selectType;
         }
       },
+      // 筛选不同评价类型的内容
       _ratingtypeSelect (type) {
         this.selectType = type;
         this.$nextTick(() => {
           this.scroll.refresh();
         });
       },
+      // 全部评价/有内容的评价切换
       _contentToggle (onlyContent) {
         this.onlyContent = !this.onlyContent;
         // this.onlyContent = onlyContent;

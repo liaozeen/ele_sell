@@ -103,31 +103,37 @@
         }
     },
     methods: {
+      // 显示符合特定条件的评价
       needShow (type, text) {
+        // 条件一： 是否显示全部评价或有内容的评价
         if (this.onlyContent && !text) {
           return false;
         }
+        // 条件二：筛选出符合选定评价类型的评价
         if (this.selectType === ALL) {
           return true;
         } else {
           return type === this.selectType;
         }
       },
+      // 筛选不同评价类型的内容
       _ratingtypeSelect (type) {
         this.selectType = type;
         this.$nextTick(() => {
           this.scroll.refresh();
         });
       },
+      // 全部评价/有内容的评价切换
       _contentToggle (onlyContent) {
         this.onlyContent = !this.onlyContent;
-        // this.onlyContent = onlyContent;
+        // 评价的长度有变化，重置滚动条
         this.$nextTick(() => {
           this.scroll.refresh();
         });
       }
     },
     filters: {
+      // 设置特定的时间格式
       formatDate (time) {
         let date = new Date(time);
         return formatDate(date, 'yyyy-MM-dd hh:mm');

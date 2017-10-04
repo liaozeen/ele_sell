@@ -1,3 +1,4 @@
+// 保存本地缓存
 export function saveToLocal (id, key, value) {
   let seller = window.localStorage._seller_;
   if (!seller) {
@@ -13,6 +14,7 @@ export function saveToLocal (id, key, value) {
   window.localStorage._seller_ = JSON.stringify(seller);
 }
 
+// 加载本地缓存
 export function loadFromLocal (id, key, def) {
   let seller = window.localStorage._seller_;
   if (!seller) {

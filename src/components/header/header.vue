@@ -81,9 +81,11 @@
       };
     },
     methods: {
+      // 显示弹出层
       showDetail () {
         this.detailShow = true;
       },
+      // 关闭弹出层
       closeDetail () {
         this.detailShow = false;
       }

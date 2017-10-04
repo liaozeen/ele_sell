@@ -20,6 +20,7 @@ export function urlParse () {
   return obj;
 }
 
+// 判断是否为GitHub环境
 export function isGithub () {
   return location.host === 'liaozeen.github.io';
 }
