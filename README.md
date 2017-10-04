@@ -1,21 +1,22 @@
-# sell
+## 仿饿了么点餐系统
+### 项目演示
+#### 浏览器直接打开
+[直接点击运行](https://liaozeen.github.io/ele_sell/#/goods)（请在手机模式下预览）
+#### 手机演示
+![扫一扫](resource/readme/demo.png)
 
-> A Vue.js project
+### 页面与组件关系
+![components](resource/readme/components.png)
 
-## Build Setup
+### 使用的工具和库
+- webpack
+- eslint
+- vue2.0
+- vue-router
+- vue-resource
+- better-scroll
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### 项目效果
+<img src="resource/readme/demo1.png" width="40%">&nbsp;&nbsp;&nbsp;&nbsp;<img src="resource/readme/demo2.png" width="40%">
+<img src="resource/readme/demo3.png" width="40%">&nbsp;&nbsp;&nbsp;&nbsp;<img src="resource/readme/demo4.png" width="40%">
+<img src="resource/readme/demo5.png" width="40%">
