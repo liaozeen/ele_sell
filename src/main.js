@@ -15,6 +15,8 @@ import './common/stylus/index.styl';
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
+// 定义路由
+// 创建 router实例，将路由配置传入
 let router = new VueRouter({
   routes: [
     { path: '/goods', component: goods },
@@ -23,7 +25,7 @@ let router = new VueRouter({
   ],
   linkActiveClass: 'active'
 });
-
+// 挂载
 new Vue({
   el: '#app',
   router,

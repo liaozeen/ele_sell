@@ -51,7 +51,7 @@
   import food from '../../components/food/food';
   import { isGithub } from '../../common/js/util';
 
-  const ERR_OK = 0;
+  const ERR_OK = 0; // 常量,方便解耦
 
   export default {
     props: {
@@ -62,18 +62,20 @@
     data () {
       return {
         goods: [],
-        listHeight: [],
-        scrollY: 0,
-        selectedFood: {}
+        listHeight: [], // 用来储存foods区域的各个区块的高度(clientHeight)
+        scrollY: 0, // 用来存储foods区域的滚动的Y坐标
+        selectedFood: {} // 用来存储当前已被选择的food数据,对象保存形式
       };
     },
     computed: {
       // 判断滚条当前所在的区块，并返回对应区块的索引
       currentIndex () {
         for (let i = 0; i < this.listHeight.length; i++) {
-          let height1 = this.listHeight[i];
-          let height2 = this.listHeight[i + 1];
-          if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
+          let height1 = this.listHeight[i]; // 当前menu子块的高度
+          let height2 = this.listHeight[i + 1];  // 下一个menu子块的高度
+        // 滚动到底部的时候,height2为undefined,需要考虑这种情况
+        // 需要确定是在两个menu子块的高度区间
+        if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
             return i;
           }
         }
@@ -105,8 +107,8 @@
                 this.goods = response.goods;
                 // $nextTick()api可以让命令延迟到DOM变化后再执行
                 this.$nextTick(() => {
-                    this._initScroll();
-                    this._calculateHeight();
+                    this._initScroll(); // 绑定滚动dom
+                    this._calculateHeight(); // 计算foods区域的各个区域的高度
                 });
             });
         } else {
@@ -138,6 +140,7 @@
         if (!event._constructed) {
           return;
         }
+        // 写入当前选择的food
         this.selectedFood = food;
         // 调用当前商品的show()方法，显示当前商品的详情页
         this.$refs.food.show();
