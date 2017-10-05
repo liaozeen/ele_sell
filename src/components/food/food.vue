@@ -18,7 +18,7 @@
           <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
         </div>
         <div class="cartcontrol-wrapper">
-          <cartcontrol :food="food"></cartcontrol>
+          <cartcontrol  @add="addFood" :food="food"></cartcontrol>
         </div>
         <transition name="fade">
           <div  @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count===0">加入购物车</div>
@@ -109,7 +109,7 @@
         if (!event._constructed) {
           return;
         }
-        // this.$emit('add', event.target);
+        this.$emit('add', event.target);
         Vue.set(this.food, 'count', 1);
       },
        // 显示符合特定条件的评价
@@ -137,6 +137,10 @@
         this.$nextTick(() => {
           this.scroll.refresh();
         });
+      },
+       // 当购物添加按钮被点击时，调用_drop()方法
+      addFood (target) {
+        this.$emit('add', event.target);
       }
     },
     events: {
