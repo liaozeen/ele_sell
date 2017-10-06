@@ -92,6 +92,14 @@ var webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
+    ]),
+    // 将根目录的data.json文件复制到dist>api目录下
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../data.json'),
+        to: 'api',
+        ignore: ['.*']
+      }
     ])
   ]
 })
